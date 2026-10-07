@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المرئيات | ترتيل – جمعية تحفيظ القرآن الكريم بمحافظة خليص</title>
+<meta name="description" content="أحدث مقاطع الفيديو من جمعية ترتيل لتحفيظ القرآن الكريم بمحافظة خليص – تعليم القرآن في القرى والهجر تخصصنا.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== غيّر الألوان هنا لتطابق هوية الجمعية ===== */
+  :root{
+    --primary:#1f6b52;      /* اللون الأساسي */
+    --accent:#c9a54b;       /* اللون الذهبي */
+    --bg:#f7f6f2;
+    --card:#ffffff;
+    --text:#1d2a25;
+    --muted:#6b7570;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Tajawal",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 16px 48px}
+  header{text-align:center;margin-bottom:28px}
+  header h1{margin:0 0 6px;font-size:clamp(1.5rem,4vw,2.1rem);color:var(--primary)}
+  header p{margin:0;color:var(--muted)}
+  .sub{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:9px 18px;border-radius:999px;
+       background:#d62828;color:#fff;text-decoration:none;font-weight:700;font-size:.95rem}
+  .sub:hover{opacity:.9}
+
+  /* المقطع المميز (الأحدث) */
+  .featured{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06);margin-bottom:28px}
+  .featured .player{position:relative;aspect-ratio:16/9;background:#000}
+  .featured iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .featured .info{padding:14px 18px}
+  .featured .tag{display:inline-block;background:var(--accent);color:#fff;font-size:.8rem;padding:2px 10px;border-radius:999px;margin-bottom:6px}
+  .featured h2{margin:0;font-size:1.15rem}
+  .featured time{color:var(--muted);font-size:.9rem}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+  .card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05);
+        cursor:pointer;border:0;padding:0;text-align:right;font:inherit;color:inherit;transition:transform .15s, box-shadow .15s}
+  .card:hover,.card:focus-visible{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.1);outline:none}
+  .thumb{position:relative;aspect-ratio:16/9;background:#ddd}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb::after{content:"";position:absolute;inset:0;margin:auto;width:56px;height:56px;border-radius:50%;
+        background:rgba(0,0,0,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/26px no-repeat}
+  .card .body{padding:12px 14px 14px}
+  .card h3{margin:0 0 4px;font-size:1rem;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card time{color:var(--muted);font-size:.85rem}
+
+  .more{display:block;margin:30px auto 0;padding:12px 30px;border:2px solid var(--primary);background:transparent;
+        color:var(--primary);border-radius:999px;font:inherit;font-weight:700;cursor:pointer}
+  .more:hover{background:var(--primary);color:#fff}
+  .more[hidden]{display:none}
+  .status{text-align:center;color:var(--muted);padding:30px 0}
+  /* عند عرض الصفحة داخل موقع الجمعية: إخفاء العنوان لأن المنصة تعرضه */
+  .embedded header h1,.embedded header p{display:none}
+  .embedded .wrap{padding-top:8px}
+  html.embedded body{background:transparent}
+
+  /* نافذة التشغيل */
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+  .modal.open{display:flex}
+  .modal .box{width:100%;max-width:960px}
+  .modal .player{position:relative;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}
+  .modal iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .modal .title{color:#fff;margin:12px 0 0;font-size:1.05rem}
+  .modal .close{position:absolute;top:14px;left:14px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;
+        font-size:1.6rem;line-height:1;cursor:pointer}
+
+  /* البديل عند عدم وجود مفتاح API */
+  .fallback{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
+  .fallback iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>المرئيات</h1>
+    <p>أحدث مقاطع جمعية ترتيل لتحفيظ القرآن الكريم بمحافظة خليص</p>
+    <a class="sub" href="https://www.youtube.com/@qkhlais?sub_confirmation=1" target="_blank" rel="noopener">▶ اشترك في القناة</a>
+  </header>
+
+  <section id="featured"></section>
+  <section id="grid" class="grid" aria-live="polite"></section>
+  <div id="status" class="status">جارٍ تحميل المقاطع…</div>
+  <button id="more" class="more" hidden>عرض المزيد</button>
+</div>
+
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-label="تشغيل المقطع">
+  <button class="close" id="close" aria-label="إغلاق">×</button>
+  <div class="box">
+    <div class="player" id="modalPlayer"></div>
+    <p class="title" id="modalTitle"></p>
+  </div>
+</div>
+
+<script>
+/* ===================== الإعدادات ===================== */
+// ضع هنا مفتاح YouTube Data API v3 (انظر الشرح المرفق).
+// إذا تُرك فارغًا تعرض الصفحة قائمة تشغيل القناة الجاهزة من يوتيوب (الأحدث أولًا).
+const API_KEY = "AIzaSyA4TcKYrTyD1mRsUkjFbAe6aaK0EE2Q0xk";
+const CHANNEL_ID = "UCXnHVSC4pj-JhwC7M1vrS1A";
+const PER_PAGE = 12;
+/* ===================================================== */
+
+if (window.self !== window.top) document.documentElement.classList.add("embedded");
+const UPLOADS = "UU" + CHANNEL_ID.slice(2);   // قائمة "كل المرفوعات" مرتبة من الأحدث
+const $ = id => document.getElementById(id);
+let nextToken = "", first = true;
+
+const embedUrl = (id, auto) =>
+  `https://www.youtube-nocookie.com/embed/${id}?rel=0${auto ? "&autoplay=1" : ""}`;
+
+function fmtDate(iso){
+  try{
+    return new Date(iso).toLocaleDateString("ar-SA-u-ca-islamic-umalqura",{year:"numeric",month:"long",day:"numeric"});
+  }catch(e){ return ""; }
+}
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function bestThumb(t){ return (t.maxres||t.standard||t.high||t.medium||t.default||{}).url || ""; }
+
+function showFallback(){
+  $("status").remove();
+  $("featured").innerHTML =
+    `<div class="fallback"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${UPLOADS}&rel=0"
+      title="مقاطع جمعية ترتيل" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+}
+
+async function load(){
+  const btn = $("more");
+  btn.disabled = true;
+  const url = new URL("https://www.googleapis.com/youtube/v3/playlistItems");
+  url.search = new URLSearchParams({
+    part:"snippet,contentDetails", playlistId:UPLOADS, maxResults:PER_PAGE, key:API_KEY,
+    ...(nextToken ? {pageToken:nextToken} : {})
+  });
+  try{
+    const res = await fetch(url.toString());
+    if(!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    const items = (data.items||[]).filter(i => i.snippet && Object.keys(i.snippet.thumbnails||{}).length);
+
+    if(first){
+      $("status").remove();
+      if(!items.length){ $("grid").innerHTML = '<p class="status">لا توجد مقاطع حاليًا.</p>'; return; }
+      const f = items.shift();
+      const id = f.contentDetails.videoId;
+      $("featured").innerHTML = `
+        <article class="featured">
+          <div class="player"><iframe src="${embedUrl(id)}" title="${esc(f.snippet.title)}" loading="lazy"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="info"><span class="tag">الأحدث</span><h2>${esc(f.snippet.title)}</h2>
+          <time>${fmtDate(f.contentDetails.videoPublishedAt||f.snippet.publishedAt)}</time></div>
+        </article>`;
+      first = false;
+    }
+
+    $("grid").insertAdjacentHTML("beforeend", items.map(i => `
+      <button class="card" data-id="${i.contentDetails.videoId}" data-title="${esc(i.snippet.title)}">
+        <div class="thumb"><img src="${bestThumb(i.snippet.thumbnails)}" alt="" loading="lazy"></div>
+        <div class="body"><h3>${esc(i.snippet.title)}</h3>
+        <time>${fmtDate(i.contentDetails.videoPublishedAt||i.snippet.publishedAt)}</time></div>
+      </button>`).join(""));
+
+    nextToken = data.nextPageToken || "";
+    btn.hidden = !nextToken;
+  }catch(err){
+    console.error("YouTube API:", err);
+    if(first) showFallback();
+  }finally{
+    btn.disabled = false;
+  }
+}
+
+// تشغيل المقطع في نافذة منبثقة
+$("grid").addEventListener("click", e => {
+  const c = e.target.closest(".card"); if(!c) return;
+  $("modalPlayer").innerHTML = `<iframe src="${embedUrl(c.dataset.id,true)}" title="${esc(c.dataset.title)}"
+     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  $("modalTitle").textContent = c.querySelector("h3").textContent;
+  $("modal").classList.add("open");
+});
+function closeModal(){ $("modal").classList.remove("open"); $("modalPlayer").innerHTML = ""; }
+$("close").addEventListener("click", closeModal);
+$("modal").addEventListener("click", e => { if(e.target === $("modal")) closeModal(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeModal(); });
+$("more").addEventListener("click", load);
+
+API_KEY ? load() : showFallback();
+</script>
+</body>
+</html>
