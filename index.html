@@ -10,7 +10,7 @@
 <style>
   /* ===== غيّر الألوان هنا لتطابق هوية الجمعية ===== */
   :root{
-    --primary:#1f6b52;      /* اللون الأساسي */
+    --primary:#5f7424;      /* اللون الأساسي (زيتي مثل شريط الموقع) */
     --accent:#c9a54b;       /* اللون الذهبي */
     --bg:#f7f6f2;
     --card:#ffffff;
@@ -19,59 +19,80 @@
     --radius:14px;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:"Tajawal",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-  .wrap{max-width:1180px;margin:0 auto;padding:32px 16px 48px}
-  header{text-align:center;margin-bottom:28px}
+  html,body{margin:0}
+  body{font-family:"Tajawal",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 16px 40px}
+  header{text-align:center;margin-bottom:24px}
   header h1{margin:0 0 6px;font-size:clamp(1.5rem,4vw,2.1rem);color:var(--primary)}
   header p{margin:0;color:var(--muted)}
   .sub{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:9px 18px;border-radius:999px;
        background:#d62828;color:#fff;text-decoration:none;font-weight:700;font-size:.95rem}
   .sub:hover{opacity:.9}
 
-  /* المقطع المميز (الأحدث) */
-  .featured{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06);margin-bottom:28px}
-  .featured .player{position:relative;aspect-ratio:16/9;background:#000}
-  .featured iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .featured .info{padding:14px 18px}
-  .featured .tag{display:inline-block;background:var(--accent);color:#fff;font-size:.8rem;padding:2px 10px;border-radius:999px;margin-bottom:6px}
-  .featured h2{margin:0;font-size:1.15rem}
-  .featured time{color:var(--muted);font-size:.9rem}
+  /* داخل موقع الجمعية: إخفاء العنوان لأن المنصة تعرضه */
+  html.embedded body{background:transparent}
+  .embedded header h1,.embedded header p{display:none}
+  .embedded header{margin-bottom:16px}
+  .embedded .wrap{padding-top:8px}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-  .card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05);
-        cursor:pointer;border:0;padding:0;text-align:right;font:inherit;color:inherit;transition:transform .15s, box-shadow .15s}
-  .card:hover,.card:focus-visible{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.1);outline:none}
+  /* ===== المشغّل الرئيسي ===== */
+  .main{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06)}
+  .player{position:relative;aspect-ratio:16/9;background:#000}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .main .info{padding:14px 18px}
+  .tag{display:inline-block;background:var(--accent);color:#fff;font-size:.8rem;padding:2px 10px;border-radius:999px;margin-bottom:6px}
+  .tag[hidden]{display:none}
+  .main h2{margin:0;font-size:1.15rem}
+  .main time{color:var(--muted);font-size:.9rem}
+
+  /* ===== شريط المقاطع ===== */
+  .strip{margin-top:26px}
+  .strip-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .strip-head h3{margin:0;font-size:1.1rem;color:var(--primary)}
+  .nav{display:flex;gap:8px}
+  .nav button{width:40px;height:40px;border-radius:50%;border:2px solid var(--primary);background:var(--card);
+       color:var(--primary);font-size:1.3rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+  .nav button:hover:not(:disabled){background:var(--primary);color:#fff}
+  .nav button:disabled{opacity:.35;cursor:default}
+
+  .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+         scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .track::-webkit-scrollbar{display:none}
+  .page{flex:0 0 100%;scroll-snap-align:start;display:grid;gap:14px;padding:2px;
+        grid-template-columns:repeat(var(--cols),1fr);align-content:start}
+
+  .card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);
+        cursor:pointer;border:2px solid transparent;padding:0;text-align:right;font:inherit;color:inherit;
+        transition:transform .15s, box-shadow .15s}
+  .card:hover,.card:focus-visible{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.1);outline:none}
+  .card.active{border-color:var(--accent)}
   .thumb{position:relative;aspect-ratio:16/9;background:#ddd}
   .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-  .thumb::after{content:"";position:absolute;inset:0;margin:auto;width:56px;height:56px;border-radius:50%;
-        background:rgba(0,0,0,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/26px no-repeat}
-  .card .body{padding:12px 14px 14px}
-  .card h3{margin:0 0 4px;font-size:1rem;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .card time{color:var(--muted);font-size:.85rem}
+  .thumb::after{content:"";position:absolute;inset:0;margin:auto;width:38px;height:38px;border-radius:50%;
+        background:rgba(0,0,0,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/18px no-repeat}
+  .card.active .thumb::after{background-color:var(--accent)}
+  .card .body{padding:8px 10px 10px}
+  .card h4{margin:0 0 2px;font-size:.88rem;font-weight:700;line-height:1.45;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card time{color:var(--muted);font-size:.75rem}
 
-  .more{display:block;margin:30px auto 0;padding:12px 30px;border:2px solid var(--primary);background:transparent;
-        color:var(--primary);border-radius:999px;font:inherit;font-weight:700;cursor:pointer}
-  .more:hover{background:var(--primary);color:#fff}
-  .more[hidden]{display:none}
+  .dots{display:flex;justify-content:center;gap:6px;margin-top:14px;flex-wrap:wrap}
+  .dots button{width:8px;height:8px;border-radius:999px;border:0;padding:0;background:#c8ccc4;cursor:pointer;transition:width .2s}
+  .dots button.on{width:22px;background:var(--primary)}
+
   .status{text-align:center;color:var(--muted);padding:30px 0}
-  /* عند عرض الصفحة داخل موقع الجمعية: إخفاء العنوان لأن المنصة تعرضه */
-  .embedded header h1,.embedded header p{display:none}
-  .embedded .wrap{padding-top:8px}
-  html.embedded body{background:transparent}
 
-  /* نافذة التشغيل */
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
-  .modal.open{display:flex}
-  .modal .box{width:100%;max-width:960px}
-  .modal .player{position:relative;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}
-  .modal iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .modal .title{color:#fff;margin:12px 0 0;font-size:1.05rem}
-  .modal .close{position:absolute;top:14px;left:14px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;
-        font-size:1.6rem;line-height:1;cursor:pointer}
-
-  /* البديل عند عدم وجود مفتاح API */
+  /* البديل عند تعذّر الاتصال بيوتيوب */
   .fallback{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
   .fallback iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+  /* الجوال: ألبوم ٢×٢ يُقلَّب بالسحب */
+  @media (max-width:699px){
+    .wrap{padding:16px 12px 28px}
+    .nav{display:none}
+    .page{gap:10px}
+    .card h4{font-size:.8rem}
+  }
 </style>
 </head>
 <body>
@@ -82,113 +103,200 @@
     <a class="sub" href="https://www.youtube.com/@qkhlais?sub_confirmation=1" target="_blank" rel="noopener">▶ اشترك في القناة</a>
   </header>
 
-  <section id="featured"></section>
-  <section id="grid" class="grid" aria-live="polite"></section>
-  <div id="status" class="status">جارٍ تحميل المقاطع…</div>
-  <button id="more" class="more" hidden>عرض المزيد</button>
-</div>
-
-<div id="modal" class="modal" role="dialog" aria-modal="true" aria-label="تشغيل المقطع">
-  <button class="close" id="close" aria-label="إغلاق">×</button>
-  <div class="box">
-    <div class="player" id="modalPlayer"></div>
-    <p class="title" id="modalTitle"></p>
-  </div>
+  <div id="app"><div class="status">جارٍ تحميل المقاطع…</div></div>
 </div>
 
 <script>
 /* ===================== الإعدادات ===================== */
-// ضع هنا مفتاح YouTube Data API v3 (انظر الشرح المرفق).
-// إذا تُرك فارغًا تعرض الصفحة قائمة تشغيل القناة الجاهزة من يوتيوب (الأحدث أولًا).
-const API_KEY = "AIzaSyA4TcKYrTyD1mRsUkjFbAe6aaK0EE2Q0xk";
+const API_KEY    = "AIzaSyA4TcKYrTyD1mRsUkjFbAe6aaK0EE2Q0xk";
 const CHANNEL_ID = "UCXnHVSC4pj-JhwC7M1vrS1A";
-const PER_PAGE = 12;
 /* ===================================================== */
 
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
-const UPLOADS = "UU" + CHANNEL_ID.slice(2);   // قائمة "كل المرفوعات" مرتبة من الأحدث
+
+const UPLOADS = "UU" + CHANNEL_ID.slice(2);   // قائمة كل المرفوعات، مرتبة من الأحدث
 const $ = id => document.getElementById(id);
-let nextToken = "", first = true;
+const app = $("app");
 
-const embedUrl = (id, auto) =>
-  `https://www.youtube-nocookie.com/embed/${id}?rel=0${auto ? "&autoplay=1" : ""}`;
+let videos = [], nextToken = "", loading = false;
+let layout = null, current = 0, activeId = "";
 
+const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const embedUrl = (id, auto) => `https://www.youtube-nocookie.com/embed/${id}?rel=0${auto ? "&autoplay=1" : ""}`;
 function fmtDate(iso){
-  try{
-    return new Date(iso).toLocaleDateString("ar-SA-u-ca-islamic-umalqura",{year:"numeric",month:"long",day:"numeric"});
-  }catch(e){ return ""; }
+  try{ return new Date(iso).toLocaleDateString("ar-SA-u-ca-islamic-umalqura",{year:"numeric",month:"long",day:"numeric"}); }
+  catch(e){ return ""; }
 }
-function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-function bestThumb(t){ return (t.maxres||t.standard||t.high||t.medium||t.default||{}).url || ""; }
+function thumb(t){ return (t.medium||t.high||t.standard||t.default||{}).url || ""; }
 
-function showFallback(){
-  $("status").remove();
-  $("featured").innerHTML =
-    `<div class="fallback"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${UPLOADS}&rel=0"
-      title="مقاطع جمعية ترتيل" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+/* عدد الأعمدة والصفوف حسب عرض الشاشة */
+function getLayout(){
+  const w = document.documentElement.clientWidth;
+  if (w >= 1000) return {cols:5, rows:1};
+  if (w >= 700)  return {cols:4, rows:1};
+  return {cols:2, rows:2};               // الجوال: ألبوم ٤ مقاطع
 }
+const perPage = () => layout.cols * layout.rows;
 
-async function load(){
-  const btn = $("more");
-  btn.disabled = true;
+/* ===== جلب المقاطع من يوتيوب ===== */
+async function fetchMore(){
+  if (loading) return;
+  loading = true;
   const url = new URL("https://www.googleapis.com/youtube/v3/playlistItems");
   url.search = new URLSearchParams({
-    part:"snippet,contentDetails", playlistId:UPLOADS, maxResults:PER_PAGE, key:API_KEY,
+    part:"snippet,contentDetails", playlistId:UPLOADS, maxResults:50, key:API_KEY,
     ...(nextToken ? {pageToken:nextToken} : {})
   });
   try{
     const res = await fetch(url.toString());
-    if(!res.ok) throw new Error(res.status);
+    if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
-    const items = (data.items||[]).filter(i => i.snippet && Object.keys(i.snippet.thumbnails||{}).length);
-
-    if(first){
-      $("status").remove();
-      if(!items.length){ $("grid").innerHTML = '<p class="status">لا توجد مقاطع حاليًا.</p>'; return; }
-      const f = items.shift();
-      const id = f.contentDetails.videoId;
-      $("featured").innerHTML = `
-        <article class="featured">
-          <div class="player"><iframe src="${embedUrl(id)}" title="${esc(f.snippet.title)}" loading="lazy"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-          <div class="info"><span class="tag">الأحدث</span><h2>${esc(f.snippet.title)}</h2>
-          <time>${fmtDate(f.contentDetails.videoPublishedAt||f.snippet.publishedAt)}</time></div>
-        </article>`;
-      first = false;
-    }
-
-    $("grid").insertAdjacentHTML("beforeend", items.map(i => `
-      <button class="card" data-id="${i.contentDetails.videoId}" data-title="${esc(i.snippet.title)}">
-        <div class="thumb"><img src="${bestThumb(i.snippet.thumbnails)}" alt="" loading="lazy"></div>
-        <div class="body"><h3>${esc(i.snippet.title)}</h3>
-        <time>${fmtDate(i.contentDetails.videoPublishedAt||i.snippet.publishedAt)}</time></div>
-      </button>`).join(""));
-
+    const items = (data.items||[])
+      .filter(i => i.snippet && Object.keys(i.snippet.thumbnails||{}).length)
+      .map(i => ({
+        id: i.contentDetails.videoId,
+        title: i.snippet.title,
+        date: i.contentDetails.videoPublishedAt || i.snippet.publishedAt,
+        img: thumb(i.snippet.thumbnails)
+      }));
+    videos = videos.concat(items);
     nextToken = data.nextPageToken || "";
-    btn.hidden = !nextToken;
+    return true;
   }catch(err){
     console.error("YouTube API:", err);
-    if(first) showFallback();
+    return false;
   }finally{
-    btn.disabled = false;
+    loading = false;
   }
 }
 
-// تشغيل المقطع في نافذة منبثقة
-$("grid").addEventListener("click", e => {
-  const c = e.target.closest(".card"); if(!c) return;
-  $("modalPlayer").innerHTML = `<iframe src="${embedUrl(c.dataset.id,true)}" title="${esc(c.dataset.title)}"
-     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-  $("modalTitle").textContent = c.querySelector("h3").textContent;
-  $("modal").classList.add("open");
-});
-function closeModal(){ $("modal").classList.remove("open"); $("modalPlayer").innerHTML = ""; }
-$("close").addEventListener("click", closeModal);
-$("modal").addEventListener("click", e => { if(e.target === $("modal")) closeModal(); });
-document.addEventListener("keydown", e => { if(e.key === "Escape") closeModal(); });
-$("more").addEventListener("click", load);
+/* ===== البديل: مشغّل قائمة يوتيوب الجاهز ===== */
+function showFallback(){
+  app.innerHTML = `<div class="fallback"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${UPLOADS}&rel=0"
+    title="مقاطع جمعية ترتيل" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+}
 
-API_KEY ? load() : showFallback();
+/* ===== بناء الواجهة ===== */
+function buildShell(){
+  app.innerHTML = `
+    <article class="main">
+      <div class="player" id="player"></div>
+      <div class="info"><span class="tag" id="tag">الأحدث</span><h2 id="vTitle"></h2><time id="vDate"></time></div>
+    </article>
+    <section class="strip" aria-label="آخر المقاطع">
+      <div class="strip-head">
+        <h3>آخر المقاطع</h3>
+        <div class="nav">
+          <button id="prev" aria-label="السابق">›</button>
+          <button id="next" aria-label="التالي">‹</button>
+        </div>
+      </div>
+      <div class="track" id="track"></div>
+      <div class="dots" id="dots"></div>
+    </section>`;
+  $("prev").onclick = () => goTo(current - 1);
+  $("next").onclick = () => goTo(current + 1);
+  $("track").addEventListener("click", e => {
+    const c = e.target.closest(".card"); if (!c) return;
+    play(c.dataset.id, true);
+    $("player").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+}
+
+function play(id, auto){
+  const v = videos.find(x => x.id === id); if (!v) return;
+  activeId = id;
+  $("player").innerHTML = `<iframe src="${embedUrl(id, auto)}" title="${esc(v.title)}"
+     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  $("vTitle").textContent = v.title;
+  $("vDate").textContent = fmtDate(v.date);
+  $("tag").hidden = id !== videos[0].id;
+  document.querySelectorAll(".card").forEach(c => c.classList.toggle("active", c.dataset.id === id));
+}
+
+let observer;
+function renderPages(keepIndex){
+  const track = $("track"), per = perPage();
+  const pages = [];
+  for (let i = 0; i < videos.length; i += per) pages.push(videos.slice(i, i + per));
+
+  track.innerHTML = pages.map((pg, p) => `
+    <div class="page" data-p="${p}" style="--cols:${layout.cols}">
+      ${pg.map(v => `
+        <button class="card${v.id === activeId ? " active" : ""}" data-id="${v.id}">
+          <div class="thumb"><img src="${v.img}" alt="" loading="lazy"></div>
+          <div class="body"><h4>${esc(v.title)}</h4><time>${fmtDate(v.date)}</time></div>
+        </button>`).join("")}
+    </div>`).join("");
+
+  $("dots").innerHTML = pages.length > 1
+    ? pages.map((_, p) => `<button data-p="${p}" aria-label="صفحة ${p + 1}"></button>`).join("") : "";
+  $("dots").onclick = e => { const b = e.target.closest("button"); if (b) goTo(+b.dataset.p); };
+
+  // معرفة الصفحة الظاهرة (يعمل مع السحب في الجوال)
+  if (observer) observer.disconnect();
+  observer = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) setCurrent(+en.target.dataset.p); });
+  }, {root: track, threshold: 0.6});
+  track.querySelectorAll(".page").forEach(p => observer.observe(p));
+
+  current = Math.min(keepIndex || 0, pages.length - 1);
+  const target = track.children[current];
+  if (target) track.scrollLeft = target.offsetLeft - track.offsetLeft;
+  updateNav();
+}
+
+function pageCount(){ return $("track").children.length; }
+
+function setCurrent(p){
+  current = p;
+  updateNav();
+  // جلب المزيد عند الاقتراب من آخر صفحة
+  if (nextToken && p >= pageCount() - 2) {
+    fetchMore().then(ok => { if (ok) renderPages(current); });
+  }
+}
+
+function goTo(p){
+  const total = pageCount();
+  if (p < 0 || p >= total) return;
+  const track = $("track"), target = track.children[p];
+  track.scrollTo({left: target.offsetLeft - track.offsetLeft, behavior: "smooth"});
+  setCurrent(p);
+}
+
+function updateNav(){
+  const total = pageCount();
+  if ($("prev")) $("prev").disabled = current <= 0;
+  if ($("next")) $("next").disabled = current >= total - 1 && !nextToken;
+  document.querySelectorAll("#dots button").forEach((b, i) => b.classList.toggle("on", i === current));
+}
+
+/* إعادة الترتيب عند تغيير حجم الشاشة */
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    const l = getLayout();
+    if (layout && (l.cols !== layout.cols || l.rows !== layout.rows)) {
+      const firstShown = current * perPage();
+      layout = l;
+      renderPages(Math.floor(firstShown / perPage()));
+    }
+  }, 150);
+});
+
+/* ===== التشغيل ===== */
+(async () => {
+  layout = getLayout();
+  const ok = await fetchMore();
+  if (!ok) return showFallback();
+  if (!videos.length){ app.innerHTML = '<div class="status">لا توجد مقاطع حاليًا.</div>'; return; }
+  buildShell();
+  activeId = videos[0].id;
+  play(videos[0].id, false);
+  renderPages(0);
+})();
 </script>
 </body>
 </html>
