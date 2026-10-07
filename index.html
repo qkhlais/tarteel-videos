@@ -36,17 +36,24 @@
   .embedded .wrap{padding-top:8px}
 
   /* ===== المشغّل الرئيسي ===== */
-  .main{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06)}
+  .main{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06);
+        max-width:760px;margin:0 auto}
   .player{position:relative;aspect-ratio:16/9;background:#000}
   .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .poster{position:absolute;inset:0;border:0;padding:0;margin:0;cursor:pointer;background:#000;width:100%;height:100%}
+  .poster img{width:100%;height:100%;object-fit:cover;display:block}
+  .poster::after{content:"";position:absolute;inset:0;margin:auto;width:72px;height:50px;border-radius:14px;
+        background:#e62117 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/28px no-repeat;
+        box-shadow:0 4px 14px rgba(0,0,0,.35);transition:transform .15s}
+  .poster:hover::after{transform:scale(1.08)}
   .main .info{padding:14px 18px}
   .tag{display:inline-block;background:var(--accent);color:#fff;font-size:.8rem;padding:2px 10px;border-radius:999px;margin-bottom:6px}
   .tag[hidden]{display:none}
-  .main h2{margin:0;font-size:1.15rem}
+  .main h2{margin:0;font-size:1.05rem}
   .main time{color:var(--muted);font-size:.9rem}
 
   /* ===== شريط المقاطع ===== */
-  .strip{margin-top:26px}
+  .strip{margin-top:22px}
   .strip-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
   .strip-head h3{margin:0;font-size:1.1rem;color:var(--primary)}
   .nav{display:flex;gap:8px}
@@ -128,6 +135,7 @@ function fmtDate(iso){
   catch(e){ return ""; }
 }
 function thumb(t){ return (t.medium||t.high||t.standard||t.default||{}).url || ""; }
+function bigImg(t){ return (t.maxres||t.standard||t.high||t.medium||t.default||{}).url || ""; }
 
 /* عدد الأعمدة والصفوف حسب عرض الشاشة */
 function getLayout(){
@@ -157,7 +165,8 @@ async function fetchMore(){
         id: i.contentDetails.videoId,
         title: i.snippet.title,
         date: i.contentDetails.videoPublishedAt || i.snippet.publishedAt,
-        img: thumb(i.snippet.thumbnails)
+        img: thumb(i.snippet.thumbnails),
+        big: bigImg(i.snippet.thumbnails)
       }));
     videos = videos.concat(items);
     nextToken = data.nextPageToken || "";
@@ -206,8 +215,12 @@ function buildShell(){
 function play(id, auto){
   const v = videos.find(x => x.id === id); if (!v) return;
   activeId = id;
-  $("player").innerHTML = `<iframe src="${embedUrl(id, auto)}" title="${esc(v.title)}"
-     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  $("player").innerHTML = auto
+    ? `<iframe src="${embedUrl(id, true)}" title="${esc(v.title)}"
+         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    : `<button class="poster" aria-label="تشغيل: ${esc(v.title)}"><img src="${v.big}" alt=""></button>`;
+  const poster = $("player").querySelector(".poster");
+  if (poster) poster.onclick = () => play(id, true);
   $("vTitle").textContent = v.title;
   $("vDate").textContent = fmtDate(v.date);
   $("tag").hidden = id !== videos[0].id;
