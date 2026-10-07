@@ -125,7 +125,7 @@ const UPLOADS = "UU" + CHANNEL_ID.slice(2);   // قائمة كل المرفوع�
 const $ = id => document.getElementById(id);
 const app = $("app");
 
-let videos = [], nextToken = "", loading = false;
+let videos = [], nextToken = "", loading = false, lastError = "";
 let layout = null, current = 0, activeId = "";
 
 const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -157,7 +157,11 @@ async function fetchMore(){
   });
   try{
     const res = await fetch(url.toString());
-    if (!res.ok) throw new Error("HTTP " + res.status);
+    if (!res.ok) {
+      let msg = "HTTP " + res.status;
+      try { const e = await res.json(); if (e.error) msg += " – " + (e.error.message || "") + (e.error.errors && e.error.errors[0] ? " [" + e.error.errors[0].reason + "]" : ""); } catch(_) {}
+      throw new Error(msg);
+    }
     const data = await res.json();
     const items = (data.items||[])
       .filter(i => i.snippet && Object.keys(i.snippet.thumbnails||{}).length)
@@ -173,6 +177,7 @@ async function fetchMore(){
     return true;
   }catch(err){
     console.error("YouTube API:", err);
+    lastError = String(err.message || err);
     return false;
   }finally{
     loading = false;
@@ -182,7 +187,8 @@ async function fetchMore(){
 /* ===== البديل: مشغّل قائمة يوتيوب الجاهز ===== */
 function showFallback(){
   app.innerHTML = `<div class="fallback"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${UPLOADS}&rel=0"
-    title="مقاطع جمعية ترتيل" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+    title="مقاطع جمعية ترتيل" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <p style="direction:ltr;text-align:center;font-size:.75rem;color:#999;margin-top:10px">YouTube API: ${esc(lastError || "unknown error")} – referrer: ${esc(location.href)}</p>`;
 }
 
 /* ===== بناء الواجهة ===== */
