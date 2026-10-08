@@ -166,6 +166,7 @@
 const API_KEY    = "AIzaSyA4TcKYrTyD1mRsUkjFbAe6aaK0EE2Q0xk";
 const CHANNEL_ID = "UCXnHVSC4pj-JhwC7M1vrS1A";
 const TT_HANDLE  = "qkhlais";      // اسم حساب الجمعية في تيك توك بدون @
+const TT_MODE    = "embed";        // "embed" = عرض مقاطع الحساب تلقائيًا | "card" = بطاقة متابعة فقط
 /* ===================================================== */
 
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
@@ -361,13 +362,14 @@ $("xFollow").href = $("xFollowTop").href = TT_URL;
 
 function xFallback(){
   $("xBody").style.height = "auto";
-  $("xBody").innerHTML = `<div class="xfallback"><p>شاهد أحدث مقاطع الجمعية على تيك توك</p>
+  $("xBody").innerHTML = `<div class="xfallback"><p>مقاطع قصيرة من حلقاتنا ومراكزنا في القرى والهجر، تُنشر أولًا بأول على حساب الجمعية في تيك توك.</p>
     <a class="xfollow" href="${TT_URL}" target="_blank" rel="noopener">زيارة حسابنا على تيك توك</a></div>`;
 }
 
 let xLoaded = false;
 function loadX(){
   if (xLoaded) return; xLoaded = true;
+  if (TT_MODE === "card") return xFallback();
   const stacked = window.matchMedia("(max-width:859px)").matches;
   const ytH = $("app").offsetHeight;
   const headH = document.querySelector(".xhead").offsetHeight;
