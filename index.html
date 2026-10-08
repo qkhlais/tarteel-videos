@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>المرئيات | ترتيل – جمعية تحفيظ القرآن الكريم بمحافظة خليص</title>
-<meta name="description" content="أحدث مقاطع الفيديو من جمعية ترتيل لتحفيظ القرآن الكريم بمحافظة خليص – تعليم القرآن في القرى والهجر تخصصنا.">
+<title>حساباتنا | ترتيل – جمعية تحفيظ القرآن الكريم بمحافظة خليص</title>
+<meta name="description" content="أحدث مقاطع وتغريدات جمعية ترتيل لتحفيظ القرآن الكريم بمحافظة خليص – تعليم القرآن في القرى والهجر تخصصنا.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -28,6 +28,8 @@
   .sub{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:9px 18px;border-radius:999px;
        background:#d62828;color:#fff;text-decoration:none;font-weight:700;font-size:.95rem}
   .sub:hover{opacity:.9}
+  .subs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .sub.x{background:#000}
 
   /* داخل موقع الجمعية: إخفاء العنوان لأن المنصة تعرضه */
   html.embedded body{background:transparent}
@@ -35,9 +37,29 @@
   .embedded header{margin-bottom:16px}
   .embedded .wrap{padding-top:8px}
 
+  /* ===== عمودان: يوتيوب (ثلثان) و X (ثلث) ===== */
+  .cols{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:22px;align-items:start}
+  .col-head{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:1.1rem;font-weight:700;color:var(--primary)}
+  .col-head svg{width:22px;height:22px;flex:0 0 auto}
+
+  /* ===== X ===== */
+  .xcard{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06);
+         display:flex;flex-direction:column}
+  .xhead{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #eceae2}
+  .xhead .ava{width:42px;height:42px;border-radius:50%;background:#000;display:grid;place-items:center;flex:0 0 auto}
+  .xhead .ava svg{width:20px;height:20px}
+  .xhead .who{flex:1;min-width:0;line-height:1.35}
+  .xhead .who b{display:block;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .xhead .who span{font-size:.82rem;color:var(--muted);direction:ltr;display:inline-block}
+  .xfollow{background:#000;color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;padding:7px 14px;border-radius:999px;white-space:nowrap}
+  .xfollow:hover{opacity:.85}
+  .xbody{overflow:hidden;min-height:200px}
+  .xbody .twitter-timeline{display:block;padding:30px 16px;text-align:center;color:var(--muted);text-decoration:none}
+  .xfallback{padding:34px 20px;text-align:center}
+  .xfallback p{margin:0 0 16px;color:var(--muted)}
+
   /* ===== المشغّل الرئيسي ===== */
-  .main{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06);
-        max-width:760px;margin:0 auto}
+  .main{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06)}
   .player{position:relative;aspect-ratio:16/9;background:#000}
   .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .poster{position:absolute;inset:0;border:0;padding:0;margin:0;cursor:pointer;background:#000;width:100%;height:100%}
@@ -93,6 +115,10 @@
   .fallback{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000}
   .fallback iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
+  /* الشاشات الضيقة: X أسفل يوتيوب */
+  @media (max-width:859px){
+    .cols{grid-template-columns:minmax(0,1fr);gap:30px}
+  }
   /* الجوال: ألبوم ٢×٢ يُقلَّب بالسحب */
   @media (max-width:699px){
     .wrap{padding:16px 12px 28px}
@@ -105,18 +131,39 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>المرئيات</h1>
-    <p>أحدث مقاطع جمعية ترتيل لتحفيظ القرآن الكريم بمحافظة خليص</p>
-    <a class="sub" href="https://www.youtube.com/@qkhlais?sub_confirmation=1" target="_blank" rel="noopener">▶ اشترك في القناة</a>
+    <h1>حساباتنا</h1>
+    <p>تابع أحدث مقاطع وأخبار جمعية ترتيل لتحفيظ القرآن الكريم بمحافظة خليص</p>
+    <div class="subs">
+      <a class="sub" href="https://www.youtube.com/@qkhlais?sub_confirmation=1" target="_blank" rel="noopener">▶ اشترك في القناة</a>
+      <a class="sub x" id="xFollowTop" href="#" target="_blank" rel="noopener">𝕏 تابعنا على X</a>
+    </div>
   </header>
 
-  <div id="app"><div class="status">جارٍ تحميل المقاطع…</div></div>
+  <div class="cols">
+    <section class="yt" id="ytCol">
+      <h2 class="col-head"><svg viewBox="0 0 24 24"><path fill="#e62117" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8z"/><path fill="#fff" d="M9.6 15.6 15.8 12 9.6 8.4z"/></svg>يوتيوب</h2>
+      <div id="app"><div class="status">جارٍ تحميل المقاطع…</div></div>
+    </section>
+
+    <aside class="xcol" id="xCol">
+      <h2 class="col-head"><svg viewBox="0 0 24 24"><path fill="#000" d="M18.2 2.3h3.4l-7.4 8.4 8.7 11.5h-6.8l-5.3-7-6.1 7H1.3l7.9-9L.9 2.3h7l4.8 6.4zm-1.2 17.9h1.9L7 4.2H5z"/></svg>منصة X</h2>
+      <div class="xcard">
+        <div class="xhead">
+          <div class="ava"><svg viewBox="0 0 24 24"><path fill="#fff" d="M18.2 2.3h3.4l-7.4 8.4 8.7 11.5h-6.8l-5.3-7-6.1 7H1.3l7.9-9L.9 2.3h7l4.8 6.4zm-1.2 17.9h1.9L7 4.2H5z"/></svg></div>
+          <div class="who"><b>جمعية ترتيل بخليص</b><span id="xHandle"></span></div>
+          <a class="xfollow" id="xFollow" href="#" target="_blank" rel="noopener">متابعة</a>
+        </div>
+        <div class="xbody" id="xBody"></div>
+      </div>
+    </aside>
+  </div>
 </div>
 
 <script>
 /* ===================== الإعدادات ===================== */
 const API_KEY    = "AIzaSyA4TcKYrTyD1mRsUkjFbAe6aaK0EE2Q0xk";
 const CHANNEL_ID = "UCXnHVSC4pj-JhwC7M1vrS1A";
+const X_HANDLE   = "qkhlais";      // اسم حساب الجمعية في X بدون @
 /* ===================================================== */
 
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
@@ -139,9 +186,9 @@ function bigImg(t){ return (t.maxres||t.standard||t.high||t.medium||t.default||{
 
 /* عدد الأعمدة والصفوف حسب عرض الشاشة */
 function getLayout(){
-  const w = document.documentElement.clientWidth;
-  if (w >= 1000) return {cols:5, rows:1};
-  if (w >= 700)  return {cols:4, rows:1};
+  const w = $("ytCol").clientWidth;      // عرض عمود يوتيوب
+  if (w >= 640) return {cols:4, rows:1};
+  if (w >= 460) return {cols:3, rows:1};
   return {cols:2, rows:2};               // الجوال: ألبوم ٤ مقاطع
 }
 const perPage = () => layout.cols * layout.rows;
@@ -305,16 +352,50 @@ window.addEventListener("resize", () => {
   }, 150);
 });
 
+/* ===== X: الخط الزمني الرسمي ===== */
+const X_URL = "https://x.com/" + X_HANDLE;
+$("xHandle").textContent = "@" + X_HANDLE;
+$("xFollow").href = $("xFollowTop").href = "https://x.com/intent/follow?screen_name=" + X_HANDLE;
+
+function xFallback(){
+  $("xBody").style.height = "auto";
+  $("xBody").innerHTML = `<div class="xfallback"><p>تابع آخر أخبار الجمعية وتغريداتها على منصة X</p>
+    <a class="xfollow" href="${X_URL}" target="_blank" rel="noopener">زيارة حسابنا على X</a></div>`;
+}
+
+let xLoaded = false;
+function loadX(){
+  if (xLoaded) return; xLoaded = true;
+  const stacked = window.matchMedia("(max-width:859px)").matches;
+  // على الكمبيوتر: نفس ارتفاع عمود يوتيوب تقريبًا، وفي الجوال ارتفاع ثابت
+  const ytH = $("app").offsetHeight;
+  const headH = document.querySelector(".xhead").offsetHeight;
+  const h = stacked ? 560 : Math.max(480, ytH - headH);
+  $("xBody").style.height = h + "px";
+  $("xBody").innerHTML = `<a class="twitter-timeline" data-lang="ar" data-dnt="true" data-height="${h}"
+     data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/${X_HANDLE}?ref_src=twsrc%5Etfw">جارٍ تحميل تغريدات @${X_HANDLE}…</a>`;
+  const sc = document.createElement("script");
+  sc.src = "https://platform.twitter.com/widgets.js"; sc.async = true; sc.charset = "utf-8";
+  sc.onerror = xFallback;
+  document.body.appendChild(sc);
+  // إن لم يظهر الخط الزمني خلال 10 ثوانٍ نعرض بطاقة المتابعة
+  setTimeout(() => { if (!$("xBody").querySelector("iframe")) xFallback(); }, 10000);
+}
+
 /* ===== التشغيل ===== */
 (async () => {
-  layout = getLayout();
-  const ok = await fetchMore();
-  if (!ok) return showFallback();
-  if (!videos.length){ app.innerHTML = '<div class="status">لا توجد مقاطع حاليًا.</div>'; return; }
-  buildShell();
-  activeId = videos[0].id;
-  play(videos[0].id, false);
-  renderPages(0);
+  try{
+    layout = getLayout();
+    const ok = await fetchMore();
+    if (!ok) return showFallback();
+    if (!videos.length){ app.innerHTML = '<div class="status">لا توجد مقاطع حاليًا.</div>'; return; }
+    buildShell();
+    activeId = videos[0].id;
+    play(videos[0].id, false);
+    renderPages(0);
+  } finally {
+    requestAnimationFrame(loadX);
+  }
 })();
 </script>
 </body>
