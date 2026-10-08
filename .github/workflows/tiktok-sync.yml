@@ -1,0 +1,50 @@
+# يجلب آخر مقاطع تيك توك كل 4 ساعات ويحدّث tiktok/videos.json
+name: TikTok – مزامنة المقاطع
+
+on:
+  schedule:
+    - cron: "17 */4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tiktok
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: جلب المقاطع
+        env:
+          TT_CLIENT_KEY: ${{ secrets.TT_CLIENT_KEY }}
+          TT_CLIENT_SECRET: ${{ secrets.TT_CLIENT_SECRET }}
+          TT_REFRESH_TOKEN: ${{ secrets.TT_REFRESH_TOKEN }}
+          NEW_REFRESH_FILE: ${{ runner.temp }}/new_refresh
+        run: python3 scripts/tiktok_sync.py
+
+      - name: حفظ رمز التجديد الجديد في الأسرار
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          f="${{ runner.temp }}/new_refresh"
+          if [ -s "$f" ]; then
+            gh secret set TT_REFRESH_TOKEN --repo "$GITHUB_REPOSITORY" < "$f"
+            rm -f "$f"
+          fi
+
+      - name: نشر التحديث
+        run: |
+          git config user.name "tarteel-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add tiktok
+          if git diff --cached --quiet; then
+            echo "لا جديد."
+          else
+            git commit -m "تحديث مقاطع تيك توك"
+            git push
+          fi

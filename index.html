@@ -57,6 +57,26 @@
   .xbody{overflow:hidden;min-height:200px}
   .xfallback{padding:34px 20px;text-align:center}
   .xbody.fit{padding:8px 8px 4px}
+  .ttgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px}
+  .ttcard{position:relative;display:block;border:0;padding:0;margin:0;border-radius:12px;overflow:hidden;cursor:pointer;
+          aspect-ratio:9/16;background:#111;font:inherit;color:#fff;text-align:right}
+  .ttcard img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+  .ttcard:hover img{transform:scale(1.04)}
+  .ttcard::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.75));z-index:1}
+  .ttcard::after{content:"";position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;z-index:2;
+        background:rgba(0,0,0,.5) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/20px no-repeat}
+  .ttcard span{position:absolute;inset:auto 8px 8px 8px;z-index:2;font-size:.78rem;font-weight:700;line-height:1.45;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .ttmore{text-align:center;padding:0 12px 14px}
+  @media (min-width:560px) and (max-width:859px){ .ttgrid{grid-template-columns:repeat(4,minmax(0,1fr))} }
+  /* نافذة التشغيل تظهر بجانب المقطع المضغوط (لأن الصفحة تُعرض داخل إطار طويل في موقع الجمعية) */
+  .ttmodal{position:absolute;top:0;left:0;width:100%;background:rgba(0,0,0,.85);display:none;z-index:50}
+  .ttmodal.open{display:block}
+  .ttmodal .frame{position:absolute;left:50%;transform:translateX(-50%);width:min(calc(100% - 24px),400px);aspect-ratio:9/16;
+        background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  .ttmodal iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .ttmodal .close{position:absolute;top:10px;left:10px;width:40px;height:40px;border-radius:50%;border:0;background:#fff;
+        font-size:1.5rem;line-height:1;cursor:pointer;z-index:2}
   .give{margin-top:16px;background:linear-gradient(135deg,var(--primary),#46561a);color:#fff;border-radius:var(--radius);
         padding:22px 20px;text-align:center;box-shadow:0 2px 14px rgba(0,0,0,.06)}
   .give .gtag{display:inline-block;background:var(--accent);color:#fff;font-size:.78rem;font-weight:700;padding:2px 12px;border-radius:999px}
@@ -176,12 +196,16 @@
   </div>
 </div>
 
+<div class="ttmodal" id="ttModal" role="dialog" aria-modal="true" aria-label="تشغيل مقطع تيك توك">
+  <div class="frame"><button class="close" id="ttClose" aria-label="إغلاق">×</button><div id="ttFrame"></div></div>
+</div>
+
 <script>
 /* ===================== الإعدادات ===================== */
 const API_KEY    = "AIzaSyA4TcKYrTyD1mRsUkjFbAe6aaK0EE2Q0xk";
 const CHANNEL_ID = "UCXnHVSC4pj-JhwC7M1vrS1A";
 const TT_HANDLE  = "qkhlais";      // اسم حساب الجمعية في تيك توك بدون @
-const TT_MODE    = "embed";        // "embed" = عرض مقاطع الحساب تلقائيًا | "card" = بطاقة متابعة فقط
+const TT_MODE    = "auto";         // "auto" = مقاطع تيك توك من المزامنة التلقائية، وإن لم تتوفر فبطاقة متابعة | "card" = بطاقة فقط | "embed" = أداة تيك توك العامة
 /* ===================================================== */
 
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
@@ -381,10 +405,45 @@ function xFallback(){
     <a class="xfollow" href="${TT_URL}" target="_blank" rel="noopener">زيارة حسابنا على تيك توك</a></div>`;
 }
 
+/* مقاطع تيك توك من ملف المزامنة التلقائية tiktok/videos.json */
+async function loadTikTokGrid(){
+  let data;
+  try{
+    const r = await fetch("tiktok/videos.json?v=" + Math.floor(Date.now() / 600000), {cache:"no-store"});
+    if (!r.ok) return false;
+    data = await r.json();
+  }catch(e){ return false; }
+  const vids = (data.videos || []).filter(v => v.id && v.cover).slice(0, 4);
+  if (!vids.length) return false;
+
+  document.querySelector(".give").hidden = !window.matchMedia("(max-width:859px)").matches;   // على الكمبيوتر تأخذ المقاطع مكان بطاقة التبرع
+  $("xBody").innerHTML = `<div class="ttgrid">${vids.map(v => `
+      <button class="ttcard" data-embed="${esc(v.embed)}" aria-label="${esc(v.title || "مقطع تيك توك")}">
+        <img src="${esc(v.cover)}" alt="" loading="lazy"><span>${esc(v.title || "")}</span>
+      </button>`).join("")}</div>
+    <div class="ttmore"><a class="xfollow" href="${TT_URL}" target="_blank" rel="noopener">المزيد على تيك توك</a></div>`;
+  $("xBody").onclick = e => {
+    const c = e.target.closest(".ttcard"); if (!c) return;
+    $("ttFrame").innerHTML = `<iframe src="${c.dataset.embed}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    const m = $("ttModal"), f = m.querySelector(".frame");
+    const docH = document.documentElement.scrollHeight;
+    m.style.height = docH + "px";
+    m.classList.add("open");
+    const cardTop = c.getBoundingClientRect().top + window.scrollY;
+    f.style.top = Math.max(12, Math.min(cardTop - 60, docH - f.offsetHeight - 12)) + "px";
+  };
+  return true;
+}
+function closeTT(){ $("ttModal").classList.remove("open"); $("ttFrame").innerHTML = ""; }
+$("ttClose").onclick = closeTT;
+$("ttModal").addEventListener("click", e => { if (e.target === $("ttModal")) closeTT(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeTT(); });
+
 let xLoaded = false;
-function loadX(){
+async function loadX(){
   if (xLoaded) return; xLoaded = true;
   if (TT_MODE === "card") return xFallback();
+  if (TT_MODE === "auto") { if (!(await loadTikTokGrid())) xFallback(); return; }
   $("xBody").classList.add("fit");
   $("xBody").innerHTML = `<blockquote class="tiktok-embed" cite="${TT_URL}" data-unique-id="${TT_HANDLE}"
       data-embed-type="creator" style="max-width:780px;min-width:288px;">

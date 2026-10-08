@@ -1,0 +1,47 @@
+# تشغيل لمرة واحدة: يحوّل رمز الربط (code) من صفحة connect.html إلى رمز تجديد دائم ويحفظه في الأسرار
+name: TikTok – ربط الحساب (مرة واحدة)
+
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "الصق رمز الربط من صفحة connect.html"
+        required: true
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: تبديل الرمز
+        env:
+          TT_CLIENT_KEY: ${{ secrets.TT_CLIENT_KEY }}
+          TT_CLIENT_SECRET: ${{ secrets.TT_CLIENT_SECRET }}
+          CODE: ${{ inputs.code }}
+          REDIRECT: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/connect.html
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          echo "::add-mask::$CODE"
+          res=$(curl -sS -X POST https://open.tiktokapis.com/v2/oauth/token/ \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            --data-urlencode "client_key=$TT_CLIENT_KEY" \
+            --data-urlencode "client_secret=$TT_CLIENT_SECRET" \
+            --data-urlencode "code=$CODE" \
+            --data-urlencode "grant_type=authorization_code" \
+            --data-urlencode "redirect_uri=$REDIRECT")
+          rt=$(echo "$res" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("refresh_token",""))')
+          if [ -z "$rt" ]; then
+            echo "فشل الربط:"; echo "$res" | python3 -c 'import sys,json;d=json.load(sys.stdin);print(d.get("error"),"-",d.get("error_description"))'
+            exit 1
+          fi
+          echo "::add-mask::$rt"
+          printf '%s' "$rt" | gh secret set TT_REFRESH_TOKEN --repo "$GITHUB_REPOSITORY"
+          echo "تم الربط بنجاح ✅"
+
+      - name: تشغيل أول مزامنة
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run tiktok-sync.yml --repo "$GITHUB_REPOSITORY"
