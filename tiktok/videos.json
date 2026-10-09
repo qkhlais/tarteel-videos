@@ -1,9 +1,27 @@
 {
- "updated": 1791525825,
+ "updated": 1791558952,
  "user": {
   "name": ""
  },
  "videos": [
+  {
+   "id": "7694656750066126098",
+   "title": "تلاوة ندية بصوت القارئ ثامر فضل من حلقات مركز #شمال_خليص، ضمن برنامج «تراتيل». 🌿 #تحفيظ_خليص #تلاوة #يوم_الجمعه #تلاوات",
+   "date": 1791551888,
+   "duration": 127,
+   "cover": "tiktok/covers/7694656750066126098.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7694656750066126098?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7694656750066126098?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
+  {
+   "id": "7694656314382978322",
+   "title": "تلاوة القارئ أيمن سليمان من حلقات مركز غرب خليص #تحفيظ#تحفيظ_خليص  #تلاوة #يوم_الجمعه #تلاوات",
+   "date": 1791551786,
+   "duration": 125,
+   "cover": "tiktok/covers/7694656314382978322.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7694656314382978322?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7694656314382978322?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
   {
    "id": "7694416250314722580",
    "title": "حلقة القاعدة النورانية بجامع الجفالي بخليص #القاعدةالنورانية #تحفيظ_خليص #خليص #قرآن #تلاوة",
@@ -165,24 +183,6 @@
    "cover": "tiktok/covers/7674674758964759809.jpg",
    "embed": "https://www.tiktok.com/player/v1/7674674758964759809?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
    "url": "https://www.tiktok.com/@qkhlais/video/7674674758964759809?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7674674807278980372",
-   "title": "بمالك تعلم كتاب الله وتبني وقفاً مدى العمر",
-   "date": 1786899478,
-   "duration": 11,
-   "cover": "tiktok/covers/7674674807278980372.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7674674807278980372?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7674674807278980372?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7674674796587765012",
-   "title": "بمالك تعلم كتاب الله وتبني وقفاً مدى العمر",
-   "date": 1786899478,
-   "duration": 9,
-   "cover": "tiktok/covers/7674674796587765012.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7674674796587765012?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7674674796587765012?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
   }
  ]
 }
