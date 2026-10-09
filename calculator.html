@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>حاسبة أثر التبرع | ترتيل – جمعية تحفيظ القرآن الكريم بمحافظة خليص</title>
-<meta name="description" content="اعرف أثر تبرعك في تعليم القرآن الكريم لأبنائنا في قرى خليص وهجرها: كم يوم دراسة، وكم طالبًا تكفل.">
+<meta name="description" content="اعرف أثر تبرعك في تعليم القرآن الكريم لأبنائنا في محافظة خليص وقراها وهجرها: كم يوم دراسة، وكم طالبًا تكفل.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
@@ -32,6 +32,10 @@
   .proj:hover{border-color:var(--accent)}
   .proj.on{border-color:var(--primary);background:#f1f5e6;box-shadow:0 4px 14px rgba(95,116,36,.15)}
   .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+  .facts.or{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center}
+  .orb{width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;display:grid;place-items:center;font-size:.95rem;box-shadow:0 2px 8px rgba(201,165,75,.4)}
+  .fact .n small{font-size:.95rem;font-weight:700}
+  .motive{margin-top:8px;display:inline-block;background:rgba(255,255,255,.14);border-radius:999px;padding:3px 14px;font-size:.9rem}
   .calc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:22px;align-items:stretch}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:0 2px 14px rgba(0,0,0,.04)}
 
@@ -100,7 +104,7 @@
 <div class="wrap">
   <header>
     <h1>حاسبة أثر التبرع</h1>
-    <p>اختر المشروع والمبلغ، واعرف أثر تبرعك في تعليم القرآن لأبنائنا في قرى خليص وهجرها</p>
+    <p>اختر المشروع والمبلغ، واعرف أثر تبرعك في تعليم القرآن لأبنائنا في محافظة خليص وقراها وهجرها</p>
   </header>
 
   <span class="lbl center">اختر المشروع</span>
@@ -134,6 +138,7 @@
         <div class="k" id="hk"></div>
         <div class="big"><b id="bigN"></b> <span id="bigU"></span></div>
         <div class="s" id="hs"></div>
+        <div class="motive" id="motive"></div>
       </div>
 
       <div class="facts" id="facts"></div>
@@ -198,6 +203,13 @@ const num = n => { const r = Math.round(n * 10) / 10; return (Number.isInteger(r
 const whole = n => Math.floor(n).toLocaleString("en-US");
 // اختيار صيغة الكلمة بحسب العدد
 function pl(n, one, two, few, many){ n = Math.floor(n); return n === 1 ? one : n === 2 ? two : (n >= 3 && n <= 10) ? few : many; }
+// عدد + معدود بصياغة عربية صحيحة: 1 → "شهر"، 2 → "شهران"، 3 → "3 أشهر"، 11 → "11 شهرًا"
+function unit(n, one, two, few, many){
+  n = Math.floor(n);
+  if (n === 1) return one;
+  if (n === 2) return two;
+  return `${n.toLocaleString("en-US")} ${n <= 10 ? few : many}`;
+}
 const fact = (n, t) => `<div class="fact"><div class="n">${n}</div><div class="t">${t}</div></div>`;
 
 function renderProjects(){
@@ -218,51 +230,80 @@ function setAmount(v, from){
   update(v);
 }
 
+// مدة بالأشهر والأيام بدون كسور: 4 أشهر و12 يومًا
+function monthsDays(totalDays){
+  const m = Math.floor(totalDays / MONTH_DAYS), d = Math.round(totalDays - m * MONTH_DAYS);
+  return [m ? unit(m,"شهر","شهران","أشهر","شهرًا") : "", d ? unit(d,"يوم","يومان","أيام","يومًا") : ""].filter(Boolean).join(" و");
+}
+const orFacts = (a, b) => `${a}<div class="orb">أو</div>${b}`;
+
 function update(v){
   const P = PROJECTS[proj];
   const monthly = P.monthly && mode === "monthly";
   const total = monthly ? v * 12 : v;          // في الشهري نعرض أثر سنة كاملة
-  let hk, bigN, bigU, hs, facts = "", hint;
+  let hk, bigN, bigU, hs, motive, facts = "", isOr = false, hint;
 
   if (proj === "student") {
     const days = total / DAY_COST;
     hk = monthly ? "تبرعك الشهري يوفّر خلال سنة" : "تبرعك يوفّر";
-    bigN = num(days); bigU = pl(days, "يوم تعليم", "يوما تعليم", "أيام تعليم", "يوم تعليم");
-    hs = "لطلاب حلقات تحفيظ القرآن الكريم في قرى خليص وهجرها";
-    const perMonth = v / MONTH_COST, months = total / MONTH_COST;
-    facts += perMonth >= 1
-      ? fact(whole(perMonth), monthly ? pl(perMonth,"طالب تكفله كل شهر","طالبان تكفلهما كل شهر","طلاب تكفلهم كل شهر","طالبًا تكفلهم كل شهر")
-                                      : pl(perMonth,"طالب تكفله شهرًا كاملًا","طالبان تكفلهما شهرًا","طلاب تكفلهم شهرًا كاملًا","طالبًا تكفلهم شهرًا كاملًا"))
-      : fact(num(days), pl(days,"يوم دراسي لطالب","يوما دراسة لطالب","أيام دراسة لطالب","يومًا دراسيًا لطالب"));
-    facts += fact(num(months), months < 1 ? "من شهر دراسة لطالب واحد" : pl(months,"شهر دراسة لطالب واحد","شهرا دراسة لطالب واحد","أشهر دراسة لطالب واحد","شهرًا دراسيًا لطالب واحد"));
+    bigN = Math.floor(days).toLocaleString("en-US"); bigU = pl(days, "يوم تعليم", "يوما تعليم", "أيام تعليم", "يوم تعليم");
+    hs = "لطلاب حلقات تحفيظ القرآن الكريم في محافظة خليص وقراها وهجرها";
+    motive = "ولك مثل أجرهم في كل آية يحفظونها";
+    const students = Math.floor(v / MONTH_COST);          // طلاب يُكفلون شهرًا (أو كل شهر)
+    if (monthly) {
+      facts = students >= 1
+        ? fact(students.toLocaleString("en-US"), `${pl(students,"طالب تكفله","طالبان تكفلهما","طلاب تكفلهم","طالبًا تكفلهم")} كل شهر طوال السنة`)
+        : fact(`${MONTH_COST - v} <small>${pl(MONTH_COST - v,"ريال","ريالان","ريالات","ريالًا")}</small>`, "فقط شهريًا لتكفل طالبًا كاملًا");
+    } else if (students >= 2) {
+      isOr = true;
+      facts = orFacts(
+        fact(students.toLocaleString("en-US"), `${pl(students,"","طالبين","طلاب","طالبًا")} لمدة شهر`),
+        fact(`<small>${monthsDays(days)}</small>`, "لطالب واحد")
+      );
+    } else if (students === 1) {
+      facts = fact("شهر كامل", "لطالب واحد");
+    } else {
+      const left = MONTH_COST - Math.floor(days);
+      facts = fact(unit(days,"يوم","يومان","أيام","يومًا"), "دراسة لطالب")
+            + fact(`${left} <small>${pl(left,"ريال","ريالان","ريالات","ريالًا")}</small>`, "فقط لتكفل طالبًا شهرًا كاملًا");
+    }
     hint = monthly ? `${v.toLocaleString("en-US")} ريال شهريًا = ${(v*12).toLocaleString("en-US")} ريال في السنة`
                    : `كل ريال = يوم دراسي لطالب • ${MONTH_COST} ريالًا = شهر كامل (${MONTH_DAYS} يومًا دراسيًا)`;
   }
   else if (proj === "waqf") {
     const shares = Math.floor(total / SHARE_COST), rest = total - shares * SHARE_COST;
     hk = monthly ? "تبرعك الشهري يصبح خلال سنة" : "تبرعك يساوي";
-    if (shares >= 1) { bigN = shares.toLocaleString("en-US"); bigU = pl(shares,"سهم","سهمان","أسهم","سهمًا"); }
-    else { bigN = num(total / SHARE_COST * 100) + "%"; bigU = "من سهم"; }
-    hs = "في وقف مجمع ترتيل لتعليم القرآن – صدقة جارية يمتد أجرها";
-    facts += fact(SHARE_COST + " ريالًا", "قيمة السهم الواحد");
-    facts += !monthly && rest > 0 && shares >= 1
-      ? fact(rest.toLocaleString("en-US") + " ريال", `زيادة لا تكمل سهمًا • أكمل إلى ${((shares + 1) * SHARE_COST).toLocaleString("en-US")} لسهم إضافي`)
-      : fact("∞", "أجر جارٍ ما دام القرآن يُعلَّم فيه");
+    motive = "صدقة جارية يمتد أجرها ما دام القرآن يُعلَّم";
+    if (shares >= 1) {
+      bigN = shares.toLocaleString("en-US"); bigU = pl(shares,"سهم","سهمان","أسهم","سهمًا");
+      hs = "في وقف مجمع ترتيل لتعليم القرآن الكريم";
+      facts = fact(`${SHARE_COST} <small>ريالًا</small>`, "قيمة السهم الواحد");
+      facts += !monthly && rest > 0
+        ? fact(`${SHARE_COST - rest} <small>${pl(SHARE_COST - rest,"ريال","ريالان","ريالات","ريالًا")}</small>`, `فقط ليصبح لك ${unit(shares + 1,"سهم واحد","سهمان","أسهم","سهمًا")}`)
+        : fact("∞", "أجر لا ينقطع");
+    } else {
+      bigN = total.toLocaleString("en-US"); bigU = pl(total,"ريال","ريالان","ريالات","ريالًا");
+      hs = "في وقف مجمع ترتيل لتعليم القرآن الكريم";
+      facts = fact(`${SHARE_COST - total} <small>${pl(SHARE_COST - total,"ريال","ريالان","ريالات","ريالًا")}</small>`, "فقط لتكمل سهمًا كاملًا") + fact("∞", "أجر لا ينقطع");
+    }
     hint = monthly ? `${v.toLocaleString("en-US")} ريال شهريًا = ${(v*12).toLocaleString("en-US")} ريال في السنة`
                    : `السهم ${SHARE_COST} ريالًا • اختر مضاعفاته لأسهم كاملة`;
   }
   else { // البركة اليومية
-    hk = "تبرعك يغطي";
-    bigN = v.toLocaleString("en-US"); bigU = pl(v, "يوم بركة", "يوما بركة", "أيام بركة", "يومًا من البركة");
-    hs = "بريال كل يوم لوقف مجمع ترتيل لتعليم القرآن";
-    const m = v / 30;
-    facts += fact(num(m), m < 1 ? "من شهر" : pl(m,"شهر","شهران","أشهر","شهرًا"));
-    facts += fact(num(v / 365), v < 365 ? "من سنة" : "سنة من العطاء اليومي");
+    hk = "تبرعك يجعل لك";
+    bigN = v.toLocaleString("en-US"); bigU = pl(v, "صدقة يومية", "صدقتين يوميتين", "صدقات يومية", "صدقة يومية");
+    hs = "بريال كل يوم في وقف مجمع ترتيل لتعليم القرآن";
+    motive = "«أحبُّ الأعمال إلى الله أدومها وإن قلّ»";
+    const y = Math.floor(v / 365), m = Math.floor((v - y * 365) / 30);
+    const span = [y ? unit(y,"سنة","سنتان","سنوات","سنة") : "", m ? unit(m,"شهر","شهران","أشهر","شهرًا") : ""].filter(Boolean).join(" و") || unit(v,"يوم","يومان","أيام","يومًا");
+    facts = fact(`<small>${span}</small>`, "من العطاء المتواصل دون انقطاع");
     hint = "ريال واحد عن كل يوم";
   }
 
   $("hk").textContent = hk; $("bigN").textContent = bigN; $("bigU").textContent = bigU; $("hs").textContent = hs;
-  $("facts").innerHTML = facts; $("hint").textContent = hint;
+  $("motive").textContent = motive;
+  $("facts").innerHTML = facts; $("facts").classList.toggle("or", isOr);
+  $("hint").textContent = hint;
   $("ctaT").textContent = P.title; $("ctaS").textContent = P.note; $("ctaB").href = P.url;
 
   $("plist").innerHTML = [...Object.values(PROJECTS).filter(x => x !== P), ...OTHER].map(x =>
@@ -289,7 +330,10 @@ $("chips").addEventListener("click", e => { const c = e.target.closest(".chip");
 $("amount").addEventListener("input", e => setAmount(e.target.value, "input"));
 $("range").addEventListener("input", e => setAmount(e.target.value, "range"));
 
-selectProject("student");
+// رابط مباشر لمشروع: calculator.html?p=student (أو waqf / daily) و&a= للمبلغ
+const q = new URLSearchParams(location.search);
+selectProject(PROJECTS[q.get("p")] ? q.get("p") : "student");
+if (+q.get("a") > 0) setAmount(+q.get("a"));
 </script>
 </body>
 </html>
