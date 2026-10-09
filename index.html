@@ -205,6 +205,7 @@
 const API_KEY    = "AIzaSyA4TcKYrTyD1mRsUkjFbAe6aaK0EE2Q0xk";
 const CHANNEL_ID = "UCXnHVSC4pj-JhwC7M1vrS1A";
 const TT_HANDLE  = "qkhlais";      // اسم حساب الجمعية في تيك توك بدون @
+const TT_DATA    = "https://raw.githubusercontent.com/qkhlais/tarteel-videos/main/";   // مصدر بيانات تيك توك
 const TT_MODE    = "auto";         // "auto" = مقاطع تيك توك من المزامنة التلقائية، وإن لم تتوفر فبطاقة متابعة | "card" = بطاقة فقط | "embed" = أداة تيك توك العامة
 /* ===================================================== */
 
@@ -409,7 +410,8 @@ function xFallback(){
 async function loadTikTokGrid(){
   let data;
   try{
-    const r = await fetch("tiktok/videos.json?v=" + Math.floor(Date.now() / 600000), {cache:"no-store"});
+    // نقرأ من المستودع مباشرة لأن تحديثات المزامنة التلقائية لا تُعيد نشر GitHub Pages
+    const r = await fetch(TT_DATA + "tiktok/videos.json?v=" + Math.floor(Date.now() / 300000), {cache:"no-store"});
     if (!r.ok) return false;
     data = await r.json();
   }catch(e){ return false; }
@@ -419,7 +421,7 @@ async function loadTikTokGrid(){
   document.querySelector(".give").hidden = !window.matchMedia("(max-width:859px)").matches;   // على الكمبيوتر تأخذ المقاطع مكان بطاقة التبرع
   $("xBody").innerHTML = `<div class="ttgrid">${vids.map(v => `
       <button class="ttcard" data-embed="${esc(v.embed)}" aria-label="${esc(v.title || "مقطع تيك توك")}">
-        <img src="${esc(v.cover)}" alt="" loading="lazy"><span>${esc(v.title || "")}</span>
+        <img src="${esc(TT_DATA + v.cover)}" alt="" loading="lazy"><span>${esc(v.title || "")}</span>
       </button>`).join("")}</div>
     <div class="ttmore"><a class="xfollow" href="${TT_URL}" target="_blank" rel="noopener">المزيد على تيك توك</a></div>`;
   $("xBody").onclick = e => {
