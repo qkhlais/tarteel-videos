@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حاسبة أثر التبرع | ترتيل – جمعية تحفيظ القرآن الكريم بمحافظة خليص</title>
+<meta name="description" content="اعرف أثر تبرعك في تعليم القرآن الكريم لأبنائنا في قرى خليص وهجرها: كم يوم دراسة، وكم طالبًا تكفل.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#5f7424; --primary-dark:#46561a; --accent:#c9a54b; --accent-soft:#f4ead0;
+    --bg:#f7f6f2; --card:#fff; --text:#1d2a25; --muted:#66706b; --line:#e6e4da; --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:"Tajawal",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+  html.embedded body{background:transparent}
+  .wrap{max-width:980px;margin:0 auto;padding:32px 16px 40px}
+  .embedded .wrap{padding-top:8px}
+
+  header{text-align:center;margin-bottom:24px}
+  header h1{margin:0;font-size:clamp(1.5rem,4.2vw,2.2rem);color:var(--primary);font-weight:800}
+  header p{margin:6px 0 0;color:var(--muted)}
+  .embedded header h1{display:none}
+
+  .calc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:22px;align-items:stretch}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:0 2px 14px rgba(0,0,0,.04)}
+
+  /* ===== الإدخال ===== */
+  .lbl{font-weight:700;margin-bottom:10px;display:block}
+  .mode{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);border-radius:999px;padding:4px;margin-bottom:20px}
+  .mode button{border:0;background:transparent;font:inherit;font-weight:700;padding:9px 0;border-radius:999px;cursor:pointer;color:var(--muted)}
+  .mode button.on{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(95,116,36,.3)}
+
+  .chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+  .chip{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 4px;font:inherit;font-weight:800;font-size:1.05rem;cursor:pointer;color:var(--text);transition:all .15s}
+  .chip small{display:block;font-weight:500;font-size:.72rem;color:var(--muted)}
+  .chip:hover{border-color:var(--accent)}
+  .chip.on{border-color:var(--primary);background:#f1f5e6;color:var(--primary-dark)}
+
+  .amount{position:relative}
+  .amount input{width:100%;font:inherit;font-size:1.9rem;font-weight:800;text-align:center;padding:12px 70px 12px 16px;
+    border:2px solid var(--line);border-radius:14px;color:var(--primary-dark);direction:ltr;outline:none}
+  .amount input:focus{border-color:var(--primary)}
+  .amount span{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:700}
+  input[type=range]{width:100%;margin:18px 0 4px;accent-color:var(--primary)}
+  .hint{font-size:.85rem;color:var(--muted);text-align:center}
+
+  /* ===== النتائج ===== */
+  .result{display:flex;flex-direction:column;gap:14px}
+  .headline{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-radius:var(--radius);padding:22px 24px;position:relative;overflow:hidden}
+  .headline::after{content:"";position:absolute;width:180px;height:180px;border:2px solid rgba(255,255,255,.12);border-radius:50%;left:-60px;top:-70px}
+  .headline .k{font-size:.95rem;opacity:.9}
+  .headline .big{font-size:clamp(2.2rem,7vw,3.2rem);font-weight:800;line-height:1.15;margin:4px 0}
+  .headline .big b{color:var(--accent)}
+  .headline .s{opacity:.92}
+
+  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 10px;text-align:center}
+  .fact .n{font-size:1.6rem;font-weight:800;color:var(--primary-dark);line-height:1.2}
+  .fact .t{font-size:.82rem;color:var(--muted);line-height:1.5}
+
+  .cta{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cta .txt{flex:1;min-width:200px}
+  .cta .txt b{color:var(--primary-dark);display:block;font-size:1.05rem}
+  .cta .txt span{font-size:.9rem;color:var(--muted)}
+  .btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;padding:12px 26px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 14px rgba(201,165,75,.35)}
+  .btn:hover{filter:brightness(.95)}
+
+  .others{margin-top:22px}
+  .others h2{font-size:1.1rem;color:var(--primary);margin:0 0 12px}
+  .plist{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .p{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--primary);border-radius:14px;padding:14px 16px;transition:transform .15s, box-shadow .15s}
+  .p:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.07)}
+  .p b{display:block;color:var(--primary-dark)}
+  .p span{font-size:.85rem;color:var(--muted)}
+
+  .hadith{margin-top:22px;text-align:center;color:var(--primary-dark);font-weight:700;font-size:1.05rem}
+  .hadith small{display:block;color:var(--muted);font-weight:500;font-size:.8rem}
+
+  @media (max-width:760px){
+    .calc{grid-template-columns:minmax(0,1fr)}
+    .panel{padding:18px}
+    .facts .fact .n{font-size:1.35rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>حاسبة أثر التبرع</h1>
+    <p>اختر مبلغ تبرعك، واعرف أثره في تعليم القرآن لأبنائنا في قرى خليص وهجرها</p>
+  </header>
+
+  <div class="calc">
+    <!-- الإدخال -->
+    <section class="panel" aria-label="مبلغ التبرع">
+      <span class="lbl">نوع التبرع</span>
+      <div class="mode" role="tablist">
+        <button class="on" data-mode="once" role="tab" aria-selected="true">مرة واحدة</button>
+        <button data-mode="monthly" role="tab" aria-selected="false">شهريًا</button>
+      </div>
+
+      <span class="lbl">المبلغ</span>
+      <div class="chips" id="chips"></div>
+
+      <div class="amount">
+        <input id="amount" type="number" inputmode="numeric" min="1" step="1" value="100" aria-label="مبلغ التبرع بالريال">
+        <span>ريال</span>
+      </div>
+      <input id="range" type="range" min="1" max="5000" step="1" value="100" aria-label="اسحب لاختيار المبلغ">
+      <p class="hint" id="hint"></p>
+    </section>
+
+    <!-- النتائج -->
+    <section class="result" aria-live="polite">
+      <div class="headline">
+        <div class="k" id="hk">تبرعك يوفّر</div>
+        <div class="big"><b id="days">100</b> يوم تعليم</div>
+        <div class="s" id="hs">لطالب في حلقات تحفيظ القرآن الكريم</div>
+      </div>
+
+      <div class="facts">
+        <div class="fact"><div class="n" id="f1">4</div><div class="t" id="f1t">طلاب تكفلهم شهرًا كاملًا</div></div>
+        <div class="fact"><div class="n" id="f2">4.5</div><div class="t" id="f2t">أشهر دراسة لطالب واحد</div></div>
+        <div class="fact"><div class="n" id="f3">3</div><div class="t" id="f3t">أسهم في وقف مجمع ترتيل</div></div>
+      </div>
+
+      <div class="cta">
+        <div class="txt"><b id="ctaT">اكفل طالبًا</b><span id="ctaS">مشروع «علّمني ولك مثل أجري»</span></div>
+        <a class="btn" id="ctaB" href="#" target="_top">تبرع الآن</a>
+      </div>
+    </section>
+  </div>
+
+  <section class="others">
+    <h2>مشاريع أخرى تستطيع دعمها</h2>
+    <div class="plist" id="plist"></div>
+  </section>
+
+  <p class="hadith">«خيرُكم من تعلَّم القرآنَ وعلَّمه»<small>رواه البخاري</small></p>
+</div>
+
+<script>
+/* ===================== الإعدادات – عدّلها عند تغيّر التكاليف ===================== */
+const CFG = {
+  dayCost:   1,    // تكلفة يوم دراسي لطالب (ريال)
+  monthDays: 22,   // أيام الدراسة الفعلية في الشهر (بدون الجمعة والسبت)
+  shareCost: 26,   // قيمة السهم في وقف مجمع ترتيل
+  presets: { once: [22, 100, 264, 500, 1000, 5000], monthly: [22, 50, 100, 200, 500, 1000] },
+  projects: {
+    student: { title: "علّمني ولك مثل أجري", url: "https://quranqulais.sa/projects/186", note: "كفالة طالب بـ22 ريالًا شهريًا" },
+    waqf:    { title: "مشروع تعليم القرآن",   url: "https://quranqulais.sa/projects/185", note: "سهمك في وقف مجمع ترتيل بـ26 ريالًا" },
+    circle:  { title: "كفالة حلقة",           url: "https://quranqulais.sa/projects/177", note: "اكفل حلقة قرآنية كاملة" },
+    daily:   { title: "البركة اليومية",        url: "https://quranqulais.sa/projects/184", note: "ريال يوميًا صدقة جارية" },
+    elders:  { title: "له أجران",             url: "https://quranqulais.sa/projects/189", note: "حلقات الأمهات وكبيرات السن" }
+  }
+};
+/* ============================================================================ */
+
+if (window.self !== window.top) document.documentElement.classList.add("embedded");
+const $ = id => document.getElementById(id);
+const monthCost = CFG.dayCost * CFG.monthDays;
+let mode = "once";
+
+const fmt = n => {
+  const r = Math.round(n * 10) / 10;
+  return (Number.isInteger(r) ? r : r.toFixed(1)).toLocaleString("en-US");
+};
+// صيغ العدد في العربية
+function plural(n, one, two, few, many){
+  n = Math.floor(n);
+  if (n === 1) return one;
+  if (n === 2) return two;
+  if (n >= 3 && n <= 10) return few;
+  return many;
+}
+
+function renderChips(){
+  $("chips").innerHTML = CFG.presets[mode].map(v => {
+    let sub = "";
+    if (v === monthCost) sub = mode === "monthly" ? "كفالة طالب" : "شهر لطالب";
+    else if (mode === "once" && v === monthCost * 12) sub = "سنة لطالب";
+    return `<button class="chip" data-v="${v}">${v.toLocaleString("en-US")}${sub ? `<small>${sub}</small>` : ""}</button>`;
+  }).join("");
+}
+
+function setAmount(v, from){
+  v = Math.max(1, Math.min(100000, Math.round(+v || 0)));
+  if (from !== "input") $("amount").value = v;
+  if (from !== "range") $("range").value = Math.min(v, +$("range").max);
+  document.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", +c.dataset.v === v));
+  update(v);
+}
+
+function update(v){
+  const yearly = mode === "monthly";
+  const total  = yearly ? v * 12 : v;             // الشهري: أثر سنة كاملة
+  const days   = total / CFG.dayCost;
+  const studentsMonth = v / monthCost;            // طلاب يكفلهم شهرًا (أو شهريًا)
+  const months = total / monthCost;               // أشهر دراسة لطالب واحد
+  const shares = Math.floor(total / CFG.shareCost);
+
+  $("hk").textContent = yearly ? "تبرعك الشهري يوفّر خلال سنة" : "تبرعك يوفّر";
+  $("days").textContent = fmt(days);
+  $("hs").textContent = "لطالب في حلقات تحفيظ القرآن الكريم";
+
+  if (yearly) {
+    $("f1").textContent = studentsMonth >= 1 ? Math.floor(studentsMonth).toLocaleString("en-US") : fmt(studentsMonth);
+    $("f1t").textContent = studentsMonth >= 1 ? plural(studentsMonth,"طالب تكفله كل شهر","طالبان تكفلهما كل شهر","طلاب تكفلهم كل شهر","طالبًا تكفلهم كل شهر") : "من كفالة طالب شهريًا";
+  } else {
+    $("f1").textContent = studentsMonth >= 1 ? Math.floor(studentsMonth).toLocaleString("en-US") : fmt(studentsMonth);
+    $("f1t").textContent = studentsMonth >= 1 ? plural(studentsMonth,"طالب تكفله شهرًا كاملًا","طالبان تكفلهما شهرًا كاملًا","طلاب تكفلهم شهرًا كاملًا","طالبًا تكفلهم شهرًا كاملًا") : "من كفالة طالب لشهر";
+  }
+  $("f2").textContent = fmt(months);
+  $("f2t").textContent = months < 1 ? "من شهر دراسة لطالب" : plural(months,"شهر دراسة لطالب واحد","شهرا دراسة لطالب واحد","أشهر دراسة لطالب واحد","شهرًا دراسيًا لطالب واحد");
+  $("f3").textContent = shares.toLocaleString("en-US");
+  $("f3t").textContent = shares === 0 ? `السهم الواحد ${CFG.shareCost} ريالًا` : plural(shares,"سهم في وقف مجمع ترتيل","سهمان في وقف مجمع ترتيل","أسهم في وقف مجمع ترتيل","سهمًا في وقف مجمع ترتيل");
+
+  // المشروع الأنسب للمبلغ
+  let p;
+  if (yearly && v >= monthCost) p = CFG.projects.student;
+  else if (!yearly && v < monthCost) p = CFG.projects.daily;
+  else if (!yearly && v >= 1000) p = CFG.projects.circle;
+  else if (!yearly && v % CFG.shareCost === 0) p = CFG.projects.waqf;
+  else p = CFG.projects.student;
+  $("ctaT").textContent = p.title;
+  $("ctaS").textContent = p.note;
+  $("ctaB").href = p.url;
+
+  $("hint").textContent = yearly
+    ? `${v.toLocaleString("en-US")} ريال شهريًا = ${(v * 12).toLocaleString("en-US")} ريال في السنة`
+    : `كل ريال = يوم دراسي لطالب • ${monthCost} ريالًا = شهر كامل`;
+
+  $("plist").innerHTML = Object.values(CFG.projects).filter(x => x !== p).map(x =>
+    `<a class="p" href="${x.url}" target="_top"><b>${x.title}</b><span>${x.note}</span></a>`).join("");
+}
+
+// الأحداث
+document.querySelector(".mode").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  mode = b.dataset.mode;
+  document.querySelectorAll(".mode button").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-selected", x === b); });
+  renderChips();
+  setAmount(mode === "monthly" ? monthCost : 100);
+});
+$("chips").addEventListener("click", e => { const c = e.target.closest(".chip"); if (c) setAmount(+c.dataset.v); });
+$("amount").addEventListener("input", e => setAmount(e.target.value, "input"));
+$("range").addEventListener("input", e => setAmount(e.target.value, "range"));
+
+renderChips();
+setAmount(100);
+</script>
+</body>
+</html>
