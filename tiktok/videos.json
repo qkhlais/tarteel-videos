@@ -1,9 +1,18 @@
 {
- "updated": 1792424050,
+ "updated": 1792443713,
  "user": {
   "name": ""
  },
  "videos": [
+  {
+   "id": "7698439091607653638",
+   "title": "🎧 لحظات من الإنصات لكتاب الله | نواف الفارسي 📖 #تراتيل #تحفيظ_خليص #خليص #تلاوة_قرآنية #جدة #مكة #تحفيط",
+   "date": 1792432558,
+   "duration": 131,
+   "cover": "tiktok/covers/7698439091607653638.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7698439091607653638?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7698439091607653638?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
   {
    "id": "7695794473808186644",
    "title": "🎙️ من أصوات حلقات القرآن الكريم | عبدالملك الخرماني 📖 #تراتيل #تحفيظ_خليص #خليص #تلاوة #تلاوات",
@@ -174,15 +183,6 @@
    "cover": "tiktok/covers/7679886441425440021.jpg",
    "embed": "https://www.tiktok.com/player/v1/7679886441425440021?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
    "url": "https://www.tiktok.com/@qkhlais/video/7679886441425440021?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7674674832549645585",
-   "title": "بمالك تعلم كتاب الله وتبني وقفاً مدى العمر",
-   "date": 1786899490,
-   "duration": 9,
-   "cover": "tiktok/covers/7674674832549645585.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7674674832549645585?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7674674832549645585?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
   }
  ]
 }
