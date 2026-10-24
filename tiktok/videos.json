@@ -1,9 +1,18 @@
 {
- "updated": 1792845551,
+ "updated": 1792867568,
  "user": {
   "name": ""
  },
  "videos": [
+  {
+   "id": "7700305750752611602",
+   "title": "🇸🇦 لحظات من الوفاء والتقدير.. مقطع من تكريم المشاركين في احتفاء الجمعية الخيرية لتحفيظ القرآن الكريم بمحافظة خليص بـ #اليوم_الوطني، بحضور رئيس مجلس الإدارة والمدير التنفيذي؛ تقديرًا لجهودهم ومشاركتهم في إنجاح هذه المناسبة الوطنية 🇸🇦💚 #اليوم_الوطني_السعودي #تحفيظ_خليص #خليص #السعودية",
+   "date": 1792867151,
+   "duration": 249,
+   "cover": "tiktok/covers/7700305750752611602.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7700305750752611602?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7700305750752611602?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
   {
    "id": "7698439091607653638",
    "title": "🎧 لحظات من الإنصات لكتاب الله | نواف الفارسي 📖 #تراتيل #تحفيظ_خليص #خليص #تلاوة_قرآنية #جدة #مكة #تحفيط",
@@ -174,15 +183,6 @@
    "cover": "tiktok/covers/7679886426405670165.jpg",
    "embed": "https://www.tiktok.com/player/v1/7679886426405670165?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
    "url": "https://www.tiktok.com/@qkhlais/video/7679886426405670165?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7679886441425440021",
-   "title": "حلقات تحفيظ القرآن بخليص: أثر إيماني من كل آية ملهمة",
-   "date": 1788112906,
-   "duration": 20,
-   "cover": "tiktok/covers/7679886441425440021.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7679886441425440021?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7679886441425440021?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
   }
  ]
 }
