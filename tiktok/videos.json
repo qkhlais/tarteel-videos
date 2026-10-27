@@ -1,9 +1,18 @@
 {
- "updated": 1793111146,
+ "updated": 1793133618,
  "user": {
   "name": ""
  },
  "videos": [
+  {
+   "id": "7701415598428867841",
+   "title": "جولة المدير التنفيذي الأستاذ / عبدالرحيم الصبحي لمجمع حلقات جامع الجفالي #جامع_الجفالي #خليص #تحفيظ #حلقات",
+   "date": 1793125668,
+   "duration": 47,
+   "cover": "tiktok/covers/7701415598428867841.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7701415598428867841?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7701415598428867841?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
   {
    "id": "7701056258538884358",
    "title": "🎙️ تلاوة إبراهيم نجم الدين | من تدشين حلقة أبي وائل رحمه الله 📖 #تراتيل #تحفيظ_خليص #خليص #تلاوة_قرآنية #تلاوات",
@@ -174,15 +183,6 @@
    "cover": "tiktok/covers/7679886440733396244.jpg",
    "embed": "https://www.tiktok.com/player/v1/7679886440733396244?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
    "url": "https://www.tiktok.com/@qkhlais/video/7679886440733396244?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7679886445309480200",
-   "title": "حلقات القرآن بخليص: أثر يمتد مع كل آية تُتلى.",
-   "date": 1788112906,
-   "duration": 9,
-   "cover": "tiktok/covers/7679886445309480200.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7679886445309480200?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7679886445309480200?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
   }
  ]
 }
