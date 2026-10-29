@@ -1,9 +1,18 @@
 {
- "updated": 1793221285,
+ "updated": 1793252519,
  "user": {
   "name": ""
  },
  "videos": [
+  {
+   "id": "7701933048400465158",
+   "title": "ختمة الطالب أنس أحمد الدعاس من مركز تحفيظ #غرب_خليص #ختم_القرآن #تلاوة #تحفيظ_خليص #خليص #تلاوات",
+   "date": 1793246153,
+   "duration": 60,
+   "cover": "tiktok/covers/7701933048400465158.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7701933048400465158?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7701933048400465158?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
   {
    "id": "7701415598428867841",
    "title": "جولة المدير التنفيذي الأستاذ / عبدالرحيم الصبحي لمجمع حلقات جامع الجفالي #جامع_الجفالي #خليص #تحفيظ #حلقات",
@@ -174,15 +183,6 @@
    "cover": "tiktok/covers/7679886447746223368.jpg",
    "embed": "https://www.tiktok.com/player/v1/7679886447746223368?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
    "url": "https://www.tiktok.com/@qkhlais/video/7679886447746223368?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7679886440733396244",
-   "title": "تبرعك اليوم يدعم حلقات تحفيظ القرآن الكريم بمحافظة خليص، ويصنع أثرًا يمتد مع كل آية تُتلى وتُحفظ.",
-   "date": 1788112906,
-   "duration": 12,
-   "cover": "tiktok/covers/7679886440733396244.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7679886440733396244?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7679886440733396244?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
   }
  ]
 }
