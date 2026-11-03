@@ -1,9 +1,18 @@
 {
- "updated": 1793706767,
+ "updated": 1793734116,
  "user": {
   "name": ""
  },
  "videos": [
+  {
+   "id": "7703969777236200724",
+   "title": "🎙️ صوت قرآني من حلقاتنا | أنس حميد اللبدي 📖 #تراتيل #تحفيظ_خليص #خليص #تلاوة_قرآنية #مكة #جدة",
+   "date": 1793720247,
+   "duration": 112,
+   "cover": "tiktok/covers/7703969777236200724.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7703969777236200724?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7703969777236200724?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
   {
    "id": "7701933048400465158",
    "title": "ختمة الطالب أنس أحمد الدعاس من مركز تحفيظ #غرب_خليص #ختم_القرآن #تلاوة #تحفيظ_خليص #خليص #تلاوات",
@@ -174,15 +183,6 @@
    "cover": "tiktok/covers/7683164896510364935.jpg",
    "embed": "https://www.tiktok.com/player/v1/7683164896510364935?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
    "url": "https://www.tiktok.com/@qkhlais/video/7683164896510364935?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7679886447746223368",
-   "title": "تبرعك اليوم يدعم حلقات تحفيظ القرآن الكريم بمحافظة خليص، ويصنع أثرًا يمتد مع كل آية تُتلى وتُحفظ.",
-   "date": 1788112906,
-   "duration": 24,
-   "cover": "tiktok/covers/7679886447746223368.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7679886447746223368?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7679886447746223368?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
   }
  ]
 }
