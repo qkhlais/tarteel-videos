@@ -1,9 +1,18 @@
 {
- "updated": 1793793840,
+ "updated": 1793821381,
  "user": {
   "name": ""
  },
  "videos": [
+  {
+   "id": "7704395650196114709",
+   "title": "🏅 الحافظ رقم 118 بمركز غرب خليص | أنس علي عمر مذكور يتلو أواخر سورة البقرة 📖 #تحفيظ_خليص #خليص #سورة_البقرة #حفاظ_القرأن_الكريم",
+   "date": 1793819404,
+   "duration": 55,
+   "cover": "tiktok/covers/7704395650196114709.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7704395650196114709?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7704395650196114709?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
   {
    "id": "7703969777236200724",
    "title": "🎙️ صوت قرآني من حلقاتنا | أنس حميد اللبدي 📖 #تراتيل #تحفيظ_خليص #خليص #تلاوة_قرآنية #مكة #جدة",
@@ -174,15 +183,6 @@
    "cover": "tiktok/covers/7687657260809506055.jpg",
    "embed": "https://www.tiktok.com/player/v1/7687657260809506055?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
    "url": "https://www.tiktok.com/@qkhlais/video/7687657260809506055?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7683164896510364935",
-   "title": "🎙️ تراتيل | صهيب الصبحي من تلاوات طلاب مركز غرب خليص، أداءٌ عذب وتلاوةٌ ندية من كتاب الله الكريم. 📖✨#تحفيظ_خليص #مركز_غرب_خليص #تراتيل #صهيب_الصبحي #تلاوة #القرآن_الكريم #خليص #تيك_توك",
-   "date": 1788876232,
-   "duration": 153,
-   "cover": "tiktok/covers/7683164896510364935.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7683164896510364935?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7683164896510364935?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
   }
  ]
 }
