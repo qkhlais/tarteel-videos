@@ -1,9 +1,18 @@
 {
- "updated": 1793880938,
+ "updated": 1793908673,
  "user": {
   "name": ""
  },
  "videos": [
+  {
+   "id": "7704771437873089812",
+   "title": "🎉 نبشركم بالحافظ رقم 121 بمركز غرب خليص! أيمن علي عمر مذكور يتم حفظ القرآن الكريم كاملًا.. وبدعمكم تتواصل البشائر والإنجازات. 💚📖 استمعوا إلى تلاوته لسورة الناس. #تحفيظ_خليص #خليص #حفاظ_القرآن #تلاوات #ليلة_الجمعة",
+   "date": 1793906898,
+   "duration": 48,
+   "cover": "tiktok/covers/7704771437873089812.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7704771437873089812?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7704771437873089812?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
   {
    "id": "7704395650196114709",
    "title": "🏅 الحافظ رقم 118 بمركز غرب خليص | أنس علي عمر مذكور يتلو أواخر سورة البقرة 📖 #تحفيظ_خليص #خليص #سورة_البقرة #حفاظ_القرأن_الكريم",
@@ -174,15 +183,6 @@
    "cover": "tiktok/covers/7687657261455396103.jpg",
    "embed": "https://www.tiktok.com/player/v1/7687657261455396103?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
    "url": "https://www.tiktok.com/@qkhlais/video/7687657261455396103?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7687657260809506055",
-   "title": "تبرعك يساهم في تعليم كتاب الله",
-   "date": 1789922190,
-   "duration": 12,
-   "cover": "tiktok/covers/7687657260809506055.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7687657260809506055?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7687657260809506055?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
   }
  ]
 }
