@@ -1,9 +1,18 @@
 {
- "updated": 1794853677,
+ "updated": 1794884044,
  "user": {
   "name": ""
  },
  "videos": [
+  {
+   "id": "7708858350146047284",
+   "title": "🎧 صوت قرآني جديد من حلقات مركز شرق خليص | أمير أشرف المرامحي 📖 #تراتيل #تحفيظ_خليص #خليص #تلاوة_قرآنية #القرآن_الكريم #جدة #مكة #الحرم_المكي",
+   "date": 1794858469,
+   "duration": 32,
+   "cover": "tiktok/covers/7708858350146047284.jpg",
+   "embed": "https://www.tiktok.com/player/v1/7708858350146047284?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
+   "url": "https://www.tiktok.com/@qkhlais/video/7708858350146047284?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
+  },
   {
    "id": "7704771437873089812",
    "title": "🎉 نبشركم بالحافظ رقم 121 بمركز غرب خليص! أيمن علي عمر مذكور يتم حفظ القرآن الكريم كاملًا.. وبدعمكم تتواصل البشائر والإنجازات. 💚📖 استمعوا إلى تلاوته لسورة الناس. #تحفيظ_خليص #خليص #حفاظ_القرآن #تلاوات #ليلة_الجمعة",
@@ -174,15 +183,6 @@
    "cover": "tiktok/covers/7687657261455412487.jpg",
    "embed": "https://www.tiktok.com/player/v1/7687657261455412487?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
    "url": "https://www.tiktok.com/@qkhlais/video/7687657261455412487?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
-  },
-  {
-   "id": "7687657261455396103",
-   "title": "ساهم بـ 26 ريالًا في تحفيظ القرآن الكريم",
-   "date": 1789922190,
-   "duration": 24,
-   "cover": "tiktok/covers/7687657261455396103.jpg",
-   "embed": "https://www.tiktok.com/player/v1/7687657261455396103?music_info=1&description=1&autoplay=1&loop=1&utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j",
-   "url": "https://www.tiktok.com/@qkhlais/video/7687657261455396103?utm_campaign=tt4d_open_api&utm_source=sbaw6enl9klx0pyn1j"
   }
  ]
 }
